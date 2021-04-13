@@ -1,8 +1,40 @@
-﻿@{
+﻿
+@{
     ViewData["Title"] = "Home Page";
+    string[] TableHeaders = new string[] {"Sektion",
+                                            "Række",
+                                            "Skuffe",
+                                            "Rum",
+                                            "Vare Navn",
+                                            "Antal",
+                                            "Type",
+                                            "Leverandør",
+                                            "Leverandør Nummer",
+                                            "Beskrivelse"};
+
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="table">
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                @{
+                    foreach (var head in TableHeaders)
+                    {
+                        <th>
+                            @head
+                        </th>
+                    }
+                }
+            </tr>
+        </thead>
+
+        <tr>
+            <td>
+            </td>
+        </tr>
+
+        <tbody>
+        </tbody>
+    </table>
 </div>
