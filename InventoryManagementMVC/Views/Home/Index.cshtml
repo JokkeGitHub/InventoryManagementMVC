@@ -29,12 +29,26 @@
             </tr>
         </thead>
 
-        <tr>
-            <td>
-            </td>
-        </tr>
-
         <tbody>
+            @{ if (Model != null)
+                {
+                    foreach (var Data in Model)
+                    {
+                        <tr>
+                            <td>@Data.Section</td>
+                            <td>@Data.Row</td>
+                            <td>@Data.Drawer</td>
+                            <td>@Data.Room</td>
+                            <td>@Data.Product</td>
+                            <td>@Data.Amount</td>
+                            <td>@Data.Type</td>
+                            <td>@Data.Supplier</td>
+                            <td>@Data.SupplierNumber</td>
+                            <td>@Data.Description</td>
+                        </tr>
+                    }
+                }
+            }
         </tbody>
     </table>
 </div>

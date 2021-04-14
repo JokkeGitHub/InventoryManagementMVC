@@ -16,6 +16,8 @@ namespace InventoryManagementMVC.Controllers
         SqlDataReader dataReader;
         SqlConnection connection = new SqlConnection();
 
+        List<Item> itemList = new List<Item>();
+
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -26,20 +28,38 @@ namespace InventoryManagementMVC.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            FetchData();
+            return View(itemList);
         }
 
         private void FetchData()
         {
+            if (itemList.Count > 0)
+            {
+                itemList.Clear();
+            }
             try
             {
                 connection.Open();
                 command.Connection = connection;
 
-                //+ Where User = User
+                // v + Where User = User
                 command.CommandText = "SELECT [Section], [Row], [Drawer], [Room], [Product], [Amount], [Type], [Supplier], [SupplierNumber], [Description] FROM Inventory";
                 dataReader = command.ExecuteReader();
-
+                while (dataReader.Read())
+                {
+                    itemList.Add(new Item(
+                        dataReader["Section"].ToString(), 
+                        dataReader["Row"].ToString(), 
+                        dataReader["Drawer"].ToString(), 
+                        dataReader["Room"].ToString(), 
+                        dataReader["Product"].ToString(),
+                        int.Parse(dataReader["Amount"].ToString()),
+                        dataReader["Type"].ToString(),
+                        dataReader["Supplier"].ToString(), 
+                        dataReader["SupplierNumber"].ToString(),
+                        dataReader["Description"].ToString()));
+                }
                 connection.Close();
             }
             catch (Exception ex)
