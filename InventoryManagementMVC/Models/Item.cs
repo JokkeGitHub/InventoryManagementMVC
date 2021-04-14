@@ -8,7 +8,7 @@ namespace InventoryManagementMVC.Models
 {
     public class Item
     {
-        //private string _user, Add this later
+        private string _username;
         private string _section;
         private string _row;
         private string _drawer;
@@ -19,6 +19,18 @@ namespace InventoryManagementMVC.Models
         private string _supplier;
         private string _supplierNumber;
         private string _description;
+
+        public string Username
+        {
+            get
+            {
+                return this._username;
+            }
+            set
+            {
+                this._username = value;
+            }
+        }
 
         public string Section
         {
@@ -131,8 +143,9 @@ namespace InventoryManagementMVC.Models
             }
         }
 
-        public Item(string section, string row, string drawer, string room, string product, int amount, string type, string supplier, string supplierNumber, string description)
+        public Item(string username, string section, string row, string drawer, string room, string product, int amount, string type, string supplier, string supplierNumber, string description)
         {
+            Username = username;
             Section = section;
             Row = row;
             Drawer = drawer;

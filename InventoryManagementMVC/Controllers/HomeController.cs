@@ -44,21 +44,25 @@ namespace InventoryManagementMVC.Controllers
                 command.Connection = connection;
 
                 // v + Where User = User
-                command.CommandText = "SELECT [Section], [Row], [Drawer], [Room], [Product], [Amount], [Type], [Supplier], [SupplierNumber], [Description] FROM Inventory";
+                command.CommandText = "SELECT [User], [Section], [Row], [Drawer], [Room], [Product], [Amount], [Type], [Supplier], [SupplierNumber], [Description] FROM Inventory ";
                 dataReader = command.ExecuteReader();
                 while (dataReader.Read())
                 {
-                    itemList.Add(new Item(
-                        dataReader["Section"].ToString(), 
-                        dataReader["Row"].ToString(), 
-                        dataReader["Drawer"].ToString(), 
-                        dataReader["Room"].ToString(), 
-                        dataReader["Product"].ToString(),
-                        int.Parse(dataReader["Amount"].ToString()),
-                        dataReader["Type"].ToString(),
-                        dataReader["Supplier"].ToString(), 
-                        dataReader["SupplierNumber"].ToString(),
-                        dataReader["Description"].ToString()));
+                    if (dataReader["User"].ToString() == User.Identity.Name)
+                    {
+                        itemList.Add(new Item(
+                            dataReader["User"].ToString(),
+                            dataReader["Section"].ToString(),
+                            dataReader["Row"].ToString(),
+                            dataReader["Drawer"].ToString(),
+                            dataReader["Room"].ToString(),
+                            dataReader["Product"].ToString(),
+                            int.Parse(dataReader["Amount"].ToString()),
+                            dataReader["Type"].ToString(),
+                            dataReader["Supplier"].ToString(),
+                            dataReader["SupplierNumber"].ToString(),
+                            dataReader["Description"].ToString()));
+                    }
                 }
                 connection.Close();
             }
